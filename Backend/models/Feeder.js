@@ -1,13 +1,14 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+
 const feederSchema = new mongoose.Schema({
   name: String,
-  status: String,
-  lastFed: Date,
-  foodLevel: Number,
   location: {
     lat: Number,
     lng: Number
   },
-  userId: mongoose.Schema.Types.ObjectId,
+  foodLevel: Number, // in percentage
+  lastFed: Date,
+  needsRefill: Boolean
 });
-module.exports = mongoose.model('Feeder', feederSchema);
+
+export default mongoose.model('Feeder', feederSchema);

@@ -1,9 +1,8 @@
-const express = require('express');
+import express from 'express';
+import { getAllFeeders, updateFeeder } from '../controllers/feederController.js';
 const router = express.Router();
-const auth = require('../middleware/authMiddleware');
-const { getStatus, updateFeeder } = require('../controllers/feederController');
 
-router.get('/status', auth, getStatus);
-router.put('/update/:id', auth, updateFeeder); // ⬅️ new route
+router.get('/', getAllFeeders);
+router.put('/:id', updateFeeder);
 
-module.exports = router;
+export default router;

@@ -1,48 +1,16 @@
-const Feeder = require('../models/Feeder');
-const db = require('../config/firebase');
+import Feeder from '../models/Feeder.js';
 
-exports.getStatus = async (req, res) => {
-  const feeders = await Feeder.find({ userId: req.user.id });
-
-  // Sync to Firebase
-  feeders.forEach(feeder => {
-    const feederData = {
-      name: feeder.name,
-      status: feeder.status,
-      lastFed: feeder.lastFed,
-      location: feeder.location,
-      foodLevel: feeder.foodLevel,
-      needsRefill: feeder.foodLevel < 25
-    };
-    db.ref('feeders/' + feeder._id).set(feederData);
-  });
-
+export const getAllFeeders = async (req, res) => {
+  const feeders = await Feeder.find();
   res.json(feeders);
 };
 
-// Optional: endpoint to update feeder values manually
-exports.updateFeeder = async (req, res) => {
+export const updateFeeder = async (req, res) => {
   const { id } = req.params;
-  const { foodLevel, status, lastFed, location } = req.body;
+  const { foodLevel, lastFed } = req.body;
 
-  const feeder = await Feeder.findByIdAndUpdate(
-    id,
-    { foodLevel, status, lastFed, location },
-    { new: true }
-  );
+  const needsRefill = foodLevel < 25;
+  const updated = await Feeder.findByIdAndUpdate(id, { foodLevel, lastFed, needsRefill }, { new: true });
 
-  if (feeder) {
-    const data = {
-      name: feeder.name,
-      status: feeder.status,
-      lastFed: feeder.lastFed,
-      location: feeder.location,
-      foodLevel: feeder.foodLevel,
-      needsRefill: feeder.foodLevel < 25
-    };
-    db.ref('feeders/' + feeder._id).set(data);
-    res.json({ msg: 'Feeder updated and synced', feeder });
-  } else {
-    res.status(404).json({ msg: 'Feeder not found' });
-  }
+  res.json(updated);
 };
