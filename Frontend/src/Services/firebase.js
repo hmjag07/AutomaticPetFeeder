@@ -1,17 +1,12 @@
-import { initializeApp } from "firebase/app";
-import { getDatabase, ref, onValue, set } from "firebase/database";
+import { initializeApp } from 'firebase/app';
+import { getDatabase, ref, onValue } from 'firebase/database';
 
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_DOMAIN",
-  databaseURL: "https://YOUR_PROJECT.firebaseio.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_BUCKET",
-  messagingSenderId: "YOUR_ID",
-  appId: "YOUR_APP_ID"
+const firebaseConfig = JSON.parse(process.env.REACT_APP_FIREBASE_CONFIG);
+const app = initializeApp(firebaseConfig);
+export const db = getDatabase(app);
+
+export const subscribeFeeders = (userId, callback) => {
+  const feedersRef = ref(db, `feeders/${userId}`);
+  return onValue(feedersRef, snapshot => callback(snapshot.val()));
 };
 
-const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
-
-export { database, ref, onValue, set };
