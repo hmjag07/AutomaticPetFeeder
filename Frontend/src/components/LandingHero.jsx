@@ -1,7 +1,7 @@
 // src/components/LandingHero.jsx
 import React from 'react';
 import { motion } from 'framer-motion';
-import petBg from '../assets/pets-bg.jpg'; // Ensure image exists
+//import petBg from '../assets/pets-bg.jpg'; // Ensure image exists
 
 const LandingHero = () => {
   return (

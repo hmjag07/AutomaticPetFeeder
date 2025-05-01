@@ -1,14 +1,13 @@
-// src/Services/firebase.js
-import { initializeApp } from 'firebase/app';
-import { getDatabase, ref, onValue, set } from 'firebase/database';
+import { initializeApp } from "firebase/app";
+import { getDatabase, ref, onValue, set } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
   authDomain: "YOUR_DOMAIN",
-  databaseURL: "YOUR_DATABASE_URL",
+  databaseURL: "https://YOUR_PROJECT.firebaseio.com",
   projectId: "YOUR_PROJECT_ID",
   storageBucket: "YOUR_BUCKET",
-  messagingSenderId: "YOUR_SENDER_ID",
+  messagingSenderId: "YOUR_ID",
   appId: "YOUR_APP_ID"
 };
 

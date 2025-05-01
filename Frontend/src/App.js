@@ -6,6 +6,8 @@ import Login from './Pages/Login';
 import Register from './Pages/Register';
 import Dashboard from './Pages/Dashboard';
 import Navbar from './components/Navbar';
+import 'leaflet/dist/leaflet.css';
+
 
 function App() {
   return (
