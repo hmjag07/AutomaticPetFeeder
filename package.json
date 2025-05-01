@@ -2,6 +2,7 @@
   "name": "automaticpetfeeder-fullstack",
   "version": "1.0.0",
   "scripts": {
+    "dev": "next dev",
     
     "heroku-postbuild": "cd frontend && npm install && npm run build",
 
