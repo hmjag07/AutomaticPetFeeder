@@ -3,7 +3,7 @@ const serviceAccount = require('./firebaseServiceAccountKey.json'); // ⬅️ Do
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: 'https://<YOUR_PROJECT>.firebaseio.com', // 🔁 Replace with your Firebase URL
+  databaseURL: 'https://automatedpetfeeder-4585e-default-rtdb.firebaseio.com', // 🔁 Replace with your Firebase URL
 });
 
 const db = admin.database();
