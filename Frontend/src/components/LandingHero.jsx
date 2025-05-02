@@ -1,10 +1,10 @@
 import React from 'react';
-//import { motion } from 'framer-motion';
-import petFeederBg from '../assets/feeder-bgm.png'; // ✅ Corrected import
+import { motion } from 'framer-motion';
+import petFeederBg from '../assets/feeder-bgm.png'; // Check this path
 
 const LandingHero = () => (
   <div style={{
-    background: `url(${petFeederBg}) center/cover`,
+    background: `url(${petFeederBg}) center/cover no-repeat`,
     height: '80vh', position: 'relative'
   }}>
     <motion.h1

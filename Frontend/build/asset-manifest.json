@@ -1,0 +1,11 @@
+{
+  "files": {
+    "main.js": "/static/js/main.41f85def.js",
+    "static/media/feeder-bgm.png": "/static/media/feeder-bgm.798b0058100a246a9c48.png",
+    "index.html": "/index.html",
+    "main.41f85def.js.map": "/static/js/main.41f85def.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.41f85def.js"
+  ]
+}
