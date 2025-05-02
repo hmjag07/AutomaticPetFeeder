@@ -1,29 +1,60 @@
-import React, { useEffect, useState } from 'react';
-import { subscribeFeeders } from '../Services/firebase';
+// src/Pages/Dashboard.jsx
+
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 const Dashboard = () => {
-  const [feeders, setFeeders] = useState({});
-  const userId = localStorage.getItem('userId');
+  const [feeders, setFeeders] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (userId) {
-      const unsubscribe = subscribeFeeders(userId, data => setFeeders(data || {}));
-      return () => unsubscribe();
-    }
-  }, [userId]);
+    const fetchFeeders = async () => {
+      try {
+        const token = localStorage.getItem("authToken");
+        const response = await axios.get(
+          "https://your-backend-url/api/feeders", // Replace with your Railway backend URL
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setFeeders(response.data);
+      } catch (error) {
+        console.error("Failed to fetch feeder data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchFeeders();
+  }, []);
+
+  if (loading) return <p>Loading your feeders...</p>;
 
   return (
-    <div style={{ padding: '2rem' }}>
-      <h2>Your Feeders (Real-Time)</h2>
-      {Object.entries(feeders).map(([id, f]) => (
-        <div key={id} style={{ border: '1px solid #ccc', margin: '1rem 0', padding: '1rem' }}>
-          <h3>{f.name}</h3>
-          <p>Status: {f.status}</p>
-          <p>Last Fed: {new Date(f.lastFed).toLocaleString()}</p>
-        </div>
-      ))}
+    <div style={{ padding: "2rem" }}>
+      <h1>Your Feeders</h1>
+      {feeders.length === 0 ? (
+        <p>No feeders found.</p>
+      ) : (
+        <ul>
+          {feeders.map((feeder) => (
+            <li key={feeder._id}>
+              <h3>{feeder.name}</h3>
+              <p>Food Remaining: {feeder.foodRemaining}%</p>
+              <p>Last Fed: {new Date(feeder.lastFed).toLocaleString()}</p>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
 
 export default Dashboard;
+
+
+
+
+
